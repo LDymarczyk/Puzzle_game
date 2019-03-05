@@ -1,0 +1,42 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PickupHeart : MonoBehaviour {
+
+    private bool playerMeet;
+    public Transform playerTestrer;
+    private float radius = 0.1f;
+    public LayerMask playerLayer;
+    public AudioClip pickupClip;
+    CatMenagerControler livesController;
+
+    public GameObject particlesPrefab; //to
+
+    // Use this for initialization
+    void Start ()
+    {
+        livesController = GameObject.Find("LiveMenager").GetComponent<CatMenagerControler>();
+
+        if (livesController == null)
+        {
+            Debug.LogError("Error 404: CatMenagerControler not found!");
+        }
+    }
+	
+	// Update is called once per frame
+	void Update ()
+    {
+
+        playerMeet = Physics2D.OverlapCircle(playerTestrer.position, radius, playerLayer);
+
+        if (playerMeet == true)
+        {
+            Destroy(this.gameObject);
+            livesController.LivesCounting();
+            AudioSource.PlayClipAtPoint(pickupClip, transform.position);
+            Instantiate(particlesPrefab, transform.position, transform.rotation); //to
+        }
+
+    }
+}
