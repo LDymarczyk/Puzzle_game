@@ -2,29 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Move_Puzzle : MonoBehaviour {
+public class MovePuzzle : MonoBehaviour {
 
     public  Sprite[]    sprites;
     public  float       speed       =   1;
 
-    // Start is called before the first frame update
-    void Start() {
-        
-    }
-
     // Update is called once per frame
     void Update() {
-        moving();
+        Moving();
     }
 
-    public void moving() {
+    public void Moving() {
         transform.position  -=  new Vector3( speed * Time.deltaTime, 0, 0 );
     }
 
-    public void goto_start() {
-        int rand    =   Random.Range(0, 3);
-        GetComponent<SpriteRenderer>().sprite = sprites[rand];
+    public void GoToStart() {
+        int rand            =   Random.Range(0, 3);
         transform.position  =   new Vector3( 15, 0, 0 );
+        GetComponent<SpriteRenderer>().sprite = sprites[rand];
     }
 
 }
